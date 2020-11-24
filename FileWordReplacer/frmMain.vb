@@ -115,4 +115,8 @@
         txtReplacement.Clear()
         txtWord.Focus()
     End Sub
+
+    Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
+        lbWords.Items.RemoveAt(lbWords.SelectedIndex)
+    End Sub
 End Class
