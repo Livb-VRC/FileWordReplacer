@@ -23,9 +23,13 @@
         ' Copies files from folder path to destination path and renames their filename and contents based on the replacement word list
         Try
             If validateForm() Then
-                My.Computer.FileSystem.CopyDirectory(txtFolderPath.Text, txtDestinationPath.Text, False)
-                frmPopup.lblPopupMessage.Text = "Success!"
+                Dim randomTempDestination As String = "39hg239v9zz293fh2937"
+                ' Copy folder to temp location
+                My.Computer.FileSystem.CopyDirectory(txtFolderPath.Text, txtDestinationPath.Text + randomTempDestination, False)
                 renameFiles()
+                ' Merge temp folder into destination folder
+                My.Computer.FileSystem.MoveDirectory(txtDestinationPath.Text + randomTempDestination, txtDestinationPath.Text, True)
+                frmPopup.lblPopupMessage.Text = "Success!"
             End If
         Catch ex As Exception
             frmPopup.lblPopupMessage.Text = "Something has gone wrong. Check there are no files to overwrite in destination path"
@@ -117,6 +121,10 @@
     End Sub
 
     Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
-        lbWords.Items.RemoveAt(lbWords.SelectedIndex)
+        If lbWords.SelectedIndex > -1 Then
+            lbWords.Items.RemoveAt(lbWords.SelectedIndex)
+        End If
     End Sub
+
+
 End Class
